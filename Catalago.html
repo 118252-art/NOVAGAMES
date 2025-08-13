@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo Futurista - NovaGames</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #05050f;
+      color: #e2e8f0;
+      background: radial-gradient(circle at top left, rgba(168,85,247,0.15), transparent 50%),
+                  radial-gradient(circle at bottom right, rgba(34,211,238,0.15), transparent 50%),
+                  #05050f;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(15,15,25,0.9);
+      border-bottom: 2px solid #a855f7;
+    }
+    header h1 {
+      color: #22d3ee;
+      margin: 0;
+    }
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #a855f7;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: rgba(15,15,25,0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 15px rgba(34,211,238,0.2);
+    }
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(168,85,247,0.5);
+    }
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .info {
+      padding: 15px;
+    }
+    .info h3 {
+      color: #a855f7;
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+    .precio {
+      color: #22d3ee;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .descripcion {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+    .oferta {
+      border: 2px solid #22d3ee;
+      position: relative;
+    }
+    .oferta::before {
+      content: "OFERTA";
+      position: absolute;
+      top: 10px;
+      right: -30px;
+      background: #a855f7;
+      color: white;
+      padding: 5px 40px;
+      font-size: 0.8rem;
+      transform: rotate(45deg);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NovaGames - Catálogo</h1>
+  </header>
+
+  <section>
+    <h2>Ofertas Especiales</h2>
+    <div class="grid">
+      <div class="producto oferta">
+        <img src="https://images.unsplash.com/photo-1541029318873-862bbc51a6de?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8VGVjbGFkbyUyMG9zY3Vyb3xlbnwwfHwwfHx8MA%3D%3D" alt="Eclipse Racer X">
+        <div class="info">
+          <h3>Teclado Astro</h3>
+          <div class="precio">$999 <del style="color:gray;">$1,199</del></div>
+          <p class="descripcion">Teclado metalico con respuesta inmediata .</p>
+        </div>
+      </div>
+      <div class="producto oferta">
+        <img src="https://generacionxbox.com/wp-content/uploads/2025/04/mrnmagn2zuqafazpu6xe44.jpg" alt="CyberQuest 2077">
+        <div class="info">
+          <h3>Silla Gamer 2077</h3>
+          <div class="precio">$2,199 <del style="color:gray;">$3,499</del></div>
+          <p class="descripcion">Silla gamer ajustable lista para tu nueva aventura .</p>
+        </div>
+      </div>
+      <div class="producto oferta">
+        <img src="https://img.freepik.com/fotos-premium/imagen-mouse-juegos-rgb-sobre-fondo-negro-ia-generativa_849906-5399.jpg" alt="Shadow Ops">
+        <div class="info">
+          <h3>Mouse boy </h3>
+          <div class="precio">$1,000 <del style="color:gray;">$1,299</del></div>
+          <p class="descripcion">Mouse tactico para juegos de shoters.</p>
+        </div>
+      </div>
+      <div class="producto oferta">
+        <img src="https://ocelot.com.mx/wp-content/uploads/2023/03/sw_fondo_oscuro_ogmh02_1.png" alt="Mecha Titans">
+        <div class="info">
+          <h3>Mecha Titans</h3>
+          <div class="precio">$1,450 <del style="color:gray;">$1,650</del></div>
+          <p class="descripcion">Controla el sonido con estos audifonos gamer con aislante de sonido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Catálogo Completo</h2>
+    <div class="grid">
+      <div class="producto">
+        <img src="https://p4.wallpaperbetter.com/wallpaper/737/346/356/nvidia-titan-rtx-graphics-card-4k-wallpaper-preview.jpg" alt="Galaxy Fighters">
+        <div class="info">
+          <h3>Galaxy NVIDIA</h3>
+          <div class="precio">$1899</div>
+          <p class="descripcion">Tarjeta Grafica potente RTX5600.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://ocelot.com.mx/wp-content/uploads/2023/09/Fondo-Negro-1.jpg" alt="RetroWave Arena">
+        <div class="info">
+          <h3>PC gamer </h3>
+          <div class="precio">$12,000</div>
+          <p class="descripcion">PC gamer con excelente tarjeta grafica </p>.
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://www.estadao.com.br/recomenda/wp-content/uploads/2023/08/acer-predator-hero-scaled.webp" alt="Pixelverse">
+        <div class="info">
+          <h3>Monitor Gamer</h3>
+          <div class="precio">$1200</div>
+          <p class="descripcion">Aventura pixel-art con mundos infinitos generados proceduralmente.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://wallpapers.com/images/hd/black-xbox-series-x-set-75y6lfzoo9wkkxfp.jpg" alt="Synth Samurai">
+        <div class="info">
+          <h3>XBOX SERIES X</h3>
+          <div class="precio">$8,199</div>
+          <p class="descripcion">Increible consola de videojuegos de ultima generacion.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://png.pngtree.com/background/20230611/original/pngtree-an-oculus-vr-headset-on-a-black-background-picture-image_3171617.jpg" alt="Virtual Horizon">
+        <div class="info">
+          <h3>Virtual Horizon</h3>
+          <div class="precio">$1,899</div>
+          <p class="descripcion">Experiencia VR de exploración espacial con realismo extremo.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/22015298/vpavic_4278_20201030_0120.jpg?quality=90&strip=all&crop=16.666666666667,0,66.666666666667,100" alt="Neon Drift">
+        <div class="info">
+          <h3>PS5</h3>
+          <div class="precio">$9,050</div>
+          <p class="descripcion">PS5 de ultima generacion.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://tienda.ocelot.com.mx/media/catalog/product/cache/f95126061379a1376524c590d0f92727/o/m/omp01-1.jpg" alt="Zero Gravity">
+        <div class="info">
+          <h3>Zero Gravity</h3>
+          <div class="precio">$999</div>
+          <p class="descripcion">Mousepad de excelente calidad.</p>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="https://cdn.cs.1worldsync.com/syndication/mediaserverredirect/3cda0cb57fd35fd0c4df6f843fd84209/original.jpg" alt="Tech Warfare">
+        <div class="info">
+          <h3>Control XBOX</h3>
+          <div class="precio">$1,499</div>
+          <p class="descripcion">Estrategia control de respuesta rapida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

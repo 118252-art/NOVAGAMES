@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NovaGames — Reseñas de Clientes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#070712; --bg2:#05050d; --text:#e5e7eb; --muted:#9aa3b2;
+      --neon-blue:#22d3ee; --neon-purple:#a855f7; --yellow:#ffd166; --card:#0f0f1b;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(34,211,238,.15), transparent 60%),
+                  radial-gradient(900px 600px at 10% 10%, rgba(168,85,247,.12), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+    header{
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(10,10,18,.9), rgba(10,10,18,.6));
+      border-bottom:1px solid rgba(168,85,247,.35);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 16px; display:flex; align-items:center; gap:16px; justify-content:space-between}
+    h1{font-family: Orbitron, Inter, sans-serif; font-size:clamp(1.4rem, 2.2vw + .8rem, 2.2rem); color:var(--neon-blue); margin:0}
+
+    .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .search, .select{
+      background:#0b0b16; border:1px solid rgba(168,85,247,.45); color:var(--text);
+      padding:10px 12px; border-radius:12px; outline:none; min-width:180px
+    }
+    .search:focus, .select:focus{ box-shadow:0 0 0 2px rgba(34,211,238,.35), 0 0 18px rgba(168,85,247,.25)}
+
+    main{max-width:1100px; margin:0 auto; padding:28px 16px 60px}
+    .grid{display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:16px}
+    @media (max-width: 960px){ .grid{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(16,16,30,.8), rgba(10,10,20,.92));
+      border:1px solid rgba(168,85,247,.28); border-radius:16px; padding:14px; display:flex; flex-direction:column; gap:10px; position:relative;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .card:hover{ transform:translateY(-3px); border-color: rgba(34,211,238,.5); box-shadow:0 14px 36px rgba(0,0,0,.45) }
+
+    .user{display:flex; gap:12px; align-items:center}
+    .avatar{width:40px; height:40px; border-radius:999px; display:grid; place-items:center; font-weight:800; font-family:Orbitron, Inter, sans-serif; color:#0a0a14; box-shadow:0 0 0 1px rgba(34,211,238,.35), 0 0 18px rgba(34,211,238,.25) inset;
+      background: conic-gradient(from 220deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
+    }
+    .name{font-weight:700}
+    .date{font-size:.8rem; color:var(--muted)}
+
+    .stars{display:flex; gap:4px}
+    .stars svg{width:18px; height:18px; color:var(--yellow); filter: drop-shadow(0 0 8px rgba(255,255,255,.2))}
+
+    .text{color:#cbd5e1; line-height:1.55}
+
+    /* formulario */
+    .form{
+      margin-top:28px; border:1px solid rgba(34,211,238,.35); border-radius:16px; padding:16px; background:rgba(8,12,24,.6)
+    }
+    .form h2{font-family: Orbitron, Inter, sans-serif; color:var(--neon-purple); margin:0 0 10px}
+    form{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .full{grid-column:1 / -1}
+    input, textarea, select{
+      width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(168,85,247,.4); background:#0b0b16; color:var(--text); outline:none
+    }
+    textarea{min-height:110px; resize:vertical}
+    button{
+      justify-self:start; padding:10px 14px; border-radius:12px; font-weight:800; border:1px solid rgba(34,211,238,.6);
+      background:linear-gradient(180deg, rgba(34,211,238,.2), rgba(168,85,247,.15)); color:#f3f4f6; cursor:pointer
+    }
+    button:hover{ box-shadow:0 0 16px rgba(168,85,247,.35), inset 0 0 18px rgba(34,211,238,.18) }
+
+    footer{border-top:1px solid rgba(168,85,247,.25); color:#9aa3b2; padding:20px 16px; text-align:center; background:linear-gradient(180deg, rgba(5,5,13, .9), rgba(5,5,13, .95))}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Reseñas de Clientes</h1>
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="Buscar por usuario o texto…"/>
+        <select id="sort" class="select" aria-label="Ordenar">
+          <option value="new">Más recientes</option>
+          <option value="old">Más antiguas</option>
+          <option value="high">Mejor puntuación</option>
+          <option value="low">Peor puntuación</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="lista" class="grid" aria-label="Listado de reseñas">
+      <!-- 12 reseñas de ejemplo -->
+      <!-- card template repeated -->
+    </section>
+
+    <section class="form" aria-labelledby="form-title">
+      <h2 id="form-title">Escribe tu reseña</h2>
+      <form id="reviewForm" onsubmit="addReview(event)">
+        <label>
+          <span>Usuario</span>
+          <input required name="user" placeholder="Tu nombre o alias"/>
+        </label>
+        <label>
+          <span>Puntuación</span>
+          <select required name="rating">
+            <option value="5">5 ★</option>
+            <option value="4">4 ★</option>
+            <option value="3">3 ★</option>
+            <option value="2">2 ★</option>
+            <option value="1">1 ★</option>
+          </select>
+        </label>
+        <label class="full">
+          <span>Tu reseña</span>
+          <textarea required name="text" placeholder="¿Qué te gustó o qué podemos mejorar?"></textarea>
+        </label>
+        <button type="submit">Publicar reseña</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> NovaGames — Gracias por compartir tu experiencia.</small>
+  </footer>
+
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById('year').textContent = year;
+
+    // Datos iniciales: 12 reseñas (mínimo 10)
+    const REVIEWS = [
+      { user:'Alejandro', rating:5, date:'2025-08-10', text:'Llegó rapidísimo y el empaque impecable. Me guiaron para elegir edición de colección.' },
+      { user:'Mariana',   rating:5, date:'2025-08-08', text:'Excelente atención por WhatsApp, precios justos y catálogo actualizado.' },
+      { user:'Rafa',      rating:4, date:'2025-08-06', text:'Todo bien. Tardó un día más de lo esperado, pero valió la pena.' },
+      { user:'Sofía',     rating:5, date:'2025-08-05', text:'Los códigos digitales activaron sin problema. ¡Recomendado!' },
+      { user:'Luis',      rating:4, date:'2025-08-03', text:'Buen embalaje y factura al instante. Podrían ampliar métodos de pago.' },
+      { user:'Karla',     rating:5, date:'2025-08-02', text:'El diseño del sitio está increíble. Las promos son reales.' },
+      { user:'Diego',     rating:3, date:'2025-08-01', text:'Me gustaría más opciones de envío. El juego llegó bien.' },
+      { user:'Camila',    rating:5, date:'2025-07-30', text:'Edición steelbook perfecta. Comunicación clara en cada paso.' },
+      { user:'Fernando',  rating:4, date:'2025-07-28', text:'Buena variedad. Los tiempos podrían ser más exactos en rastreo.' },
+      { user:'Itzel',     rating:5, date:'2025-07-27', text:'Excelente experiencia, repetiré compra.' },
+      { user:'Jorge',     rating:4, date:'2025-07-25', text:'Me encantó el apartado de reseñas, muy útil para decidir.' },
+      { user:'Valeria',   rating:5, date:'2025-07-22', text:'Atención postventa de 10. Me resolvieron un cambio sin problemas.' },
+    ];
+
+    const container = document.getElementById('lista');
+
+    function starSVG(){
+      return `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431L24 9.753l-6 5.848 1.417 8.262L12 19.771 4.583 23.863 6 15.601 0 9.753l8.332-1.735z"/></svg>`;
+    }
+
+    function render(list){
+      container.innerHTML = '';
+      list.forEach(r => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        const initials = r.user?.[0]?.toUpperCase() || '?';
+        card.innerHTML = `
+          <div class="user">
+            <div class="avatar" aria-hidden="true">${initials}</div>
+            <div>
+              <div class="name">${r.user}</div>
+              <div class="date">${new Date(r.date).toLocaleDateString('es-MX', {year:'numeric', month:'short', day:'numeric'})}</div>
+            </div>
+          </div>
+          <div class="stars" aria-label="${r.rating} de 5 estrellas">
+            ${Array.from({length:r.rating}).map(starSVG).join('')}
+          </div>
+          <p class="text">${r.text}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function sortBy(list, mode){
+      const arr = [...list];
+      if(mode === 'new') arr.sort((a,b)=> new Date(b.date) - new Date(a.date));
+      else if(mode === 'old') arr.sort((a,b)=> new Date(a.date) - new Date(b.date));
+      else if(mode === 'high') arr.sort((a,b)=> b.rating - a.rating || new Date(b.date) - new Date(a.date));
+      else if(mode === 'low') arr.sort((a,b)=> a.rating - b.rating || new Date(b.date) - new Date(a.date));
+      return arr;
+    }
+
+    function filterBy(list, q){
+      if(!q) return list;
+      const t = q.toLowerCase();
+      return list.filter(r => r.user.toLowerCase().includes(t) || r.text.toLowerCase().includes(t));
+    }
+
+    // Eventos de búsqueda y orden
+    const search = document.getElementById('search');
+    const sort = document.getElementById('sort');
+    function update(){
+      const filtered = filterBy(REVIEWS, search.value);
+      const ordered = sortBy(filtered, sort.value);
+      render(ordered);
+    }
+    search.addEventListener('input', update);
+    sort.addEventListener('change', update);
+
+    // Formulario para agregar reseña
+    function addReview(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const item = { user:data.user.trim() || 'Anónimo', rating:Number(data.rating)||5, date:new Date().toISOString().slice(0,10), text:data.text.trim() };
+      REVIEWS.unshift(item);
+      e.target.reset();
+      sort.value = 'new';
+      update();
+      alert('✅ ¡Gracias por tu reseña!');
+    }
+    window.addReview = addReview;
+
+    // Render inicial
+    sort.value = 'new';
+    update();
+  </script>
+</body>
+</html>

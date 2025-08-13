@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — NovaGames</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: radial-gradient(circle at top right, rgba(168,85,247,0.15), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(34,211,238,0.15), transparent 40%),
+                #05050d;
+    color: #e5e7eb;
+  }
+  header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(168,85,247,.3);
+  }
+  header h1 {
+    font-family: Orbitron, sans-serif;
+    color: #22d3ee;
+    margin: 0;
+  }
+  main {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(15,15,25,0.85);
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(168,85,247,0.5);
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #a855f7;
+  }
+  input, textarea, button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    font-family: Inter, sans-serif;
+  }
+  input, textarea {
+    background: rgba(34,34,50,0.8);
+    color: #e5e7eb;
+  }
+  input:focus, textarea:focus {
+    box-shadow: 0 0 10px #22d3ee;
+  }
+  button {
+    background: linear-gradient(90deg, #a855f7, #22d3ee);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  button:hover {
+    transform: scale(1.05);
+  }
+  .error {
+    font-size: 0.85rem;
+    color: #f87171;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Contacto — NovaGames</h1>
+  </header>
+
+  <main>
+    <form id="contactForm">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <div class="error" id="errorNombre">El nombre es obligatorio.</div>
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" required>
+      <div class="error" id="errorEmail">Introduce un correo válido.</div>
+
+      <label for="mensaje">Mensaje:</label>
+      <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+      <div class="error" id="errorMensaje">El mensaje no puede estar vacío.</div>
+
+      <button type="submit">Enviar Mensaje</button>
+    </form>
+  </main>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const nombre = document.getElementById('nombre');
+  const email = document.getElementById('email');
+  const mensaje = document.getElementById('mensaje');
+
+  const errorNombre = document.getElementById('errorNombre');
+  const errorEmail = document.getElementById('errorEmail');
+  const errorMensaje = document.getElementById('errorMensaje');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valido = true;
+
+    // Validar nombre
+    if (nombre.value.trim() === "") {
+      errorNombre.style.display = "block";
+      valido = false;
+    } else {
+      errorNombre.style.display = "none";
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+      errorEmail.style.display = "block";
+      valido = false;
+    } else {
+      errorEmail.style.display = "none";
+    }
+
+    // Validar mensaje
+    if (mensaje.value.trim() === "") {
+      errorMensaje.style.display = "block";
+      valido = false;
+    } else {
+      errorMensaje.style.display = "none";
+    }
+
+    if (valido) {
+      alert("¡Gracias por contactarnos, " + nombre.value + "! Tu mensaje ha sido enviado.");
+      form.reset();
+    }
+  });
+</script>
+</body>
+</html>
